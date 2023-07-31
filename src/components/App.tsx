@@ -1,7 +1,7 @@
 import * as reactRedux from 'react-redux';
 import * as React from 'react';
 import { setIsAdmin } from '../actions/users_actions';
-//import { addTextResponseProblem } from '../actions/sharedjson_actions';
+import { addTextResponseProblem } from '../actions/sharedjson_actions';
 import { IPMState } from '../reducers';
 import { Problem } from '../model';
 
@@ -25,7 +25,7 @@ const PMApplication = ({
   };
 
   const doAddTextResponseProblem = (): void => {
-    //dispatch(addTextResponseProblem());
+    dispatch(addTextResponseProblem());
   };
 
   const editButton = (
@@ -65,7 +65,8 @@ const PMApplication = ({
 
 const mapStateToProps = (state: IPMState) => {
   return {
-    isAdmin: state.users.isAdmin
+    isAdmin: state.users.isAdmin,
+    problems: state.shareJSONDocs.problems
   };
 };
 export const App = reactRedux.connect(mapStateToProps)(PMApplication);

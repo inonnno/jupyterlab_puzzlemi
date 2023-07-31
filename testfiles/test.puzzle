@@ -2,15 +2,21 @@
   "problems": [
     {
       "id": 1,
-      "question": "What is the capital of France?",
-      "solution": "Paris",
-      "answer": "Paris"
+      "question": "Question1",
+      "solution": "Solution1",
+      "answer": "Answer1"
     },
     {
       "id": 2,
-      "question": "What is 2 + 2?",
-      "solution": "111",
-      "answer": "4"
+      "question": "Question2",
+      "solution": "Solution2",
+      "answer": "Answer2"
+    },
+    {
+      "id": 3,
+      "question": "Question3",
+      "solution": "Solution3",
+      "answer": "Answer3"
     }
   ],
   "content": "what"

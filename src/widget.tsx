@@ -68,7 +68,7 @@ export class PuzzlePanel extends ReactWidget {
   render(): JSX.Element {
     return (
       <Provider store={this.store}>
-        <App content={this._model.content} problems={this._model.problems} />
+        <App content={this._model.content} />
       </Provider>
     );
   }

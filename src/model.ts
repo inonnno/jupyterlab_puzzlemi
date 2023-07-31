@@ -413,6 +413,13 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
     this._content.set(key, key === 'problems' ? JSON.stringify(value) : value);
   }
 
+  //add a new problem to the list
+  submitObjectInsertOp(value: Problem): void {
+    const currentProblems: Problem[] = this._content.get('problems');
+    const newProblems: Problem[] = [...currentProblems, value];
+    this._content.set('problems', newProblems);
+  }
+
   /**
    * Handle a change.
    *

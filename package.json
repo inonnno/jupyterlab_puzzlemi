@@ -70,6 +70,7 @@
         "@lumino/signaling": "^2.0.0",
         "@lumino/widgets": "^2.0.0",
         "@types/react-dom": "^18.2.7",
+        "codemirror": "5.57.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-redux": "^8.1.1",

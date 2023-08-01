@@ -4,20 +4,21 @@ import { setIsAdmin } from '../actions/users_actions';
 import { addTextResponseProblem } from '../actions/sharedjson_actions';
 import { IPMState } from '../reducers';
 import { Problem } from '../model';
+import { CodeEditor }   from './CodeEditor';
 
 interface IPMAppOwnProps {}
 interface IPMAppProps extends IPMAppOwnProps {
   isAdmin: boolean;
   dispatch: React.Dispatch<any>;
   content: string;
-  problems: Problem[];
+  //problems: Problem[];
 }
 
 const PMApplication = ({
   isAdmin,
   dispatch,
   content,
-  problems
+  //problems
 }: IPMAppProps): React.ReactElement => {
   const handleEditChange = (event: any) => {
     const checked = event.target.checked;
@@ -25,7 +26,7 @@ const PMApplication = ({
   };
 
   const doAddTextResponseProblem = (): void => {
-    dispatch(addTextResponseProblem());
+    //dispatch(addTextResponseProblem());
   };
 
   const editButton = (
@@ -44,6 +45,7 @@ const PMApplication = ({
   );
   const AdminPage = (
     <div>
+      <CodeEditor />
       <button
         className="btn btn-outline-success btn-sm"
         onClick={doAddTextResponseProblem}
@@ -52,8 +54,8 @@ const PMApplication = ({
       </button>
     </div>
   );
-
-  const NoneAdminPage = <div>{problems[1].id}</div>;
+//<div>{problems[1].id}</div>;
+  const NoneAdminPage = <div>hi</div>;
 
   return (
     <div className="container">
@@ -66,7 +68,7 @@ const PMApplication = ({
 const mapStateToProps = (state: IPMState) => {
   return {
     isAdmin: state.users.isAdmin,
-    problems: state.shareJSONDocs.problems
+    //problems: state.shareJSONDocs.problems
   };
 };
 export const App = reactRedux.connect(mapStateToProps)(PMApplication);

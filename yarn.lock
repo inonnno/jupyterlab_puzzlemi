@@ -5032,6 +5032,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"codemirror@npm:5.57.0":
+  version: 5.57.0
+  resolution: "codemirror@npm:5.57.0"
+  checksum: d06c545f5a5c261190e876f33f18fb3dd76ef88178c14415195c63281a98d32aa96f5b1736735f9acba2d9e2c0ca219b5d34427bddf5f430e9c4bbff884a0964
+  languageName: node
+  linkType: hard
+
 "collect-v8-coverage@npm:^1.0.0":
   version: 1.0.2
   resolution: "collect-v8-coverage@npm:1.0.2"
@@ -8155,6 +8162,7 @@ __metadata:
     "@types/react-dom": ^18.2.7
     "@typescript-eslint/eslint-plugin": ^5.55.0
     "@typescript-eslint/parser": ^5.55.0
+    codemirror: 5.57.0
     css-loader: ^6.7.1
     eslint: ^8.36.0
     eslint-config-prettier: ^8.8.0

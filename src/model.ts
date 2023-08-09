@@ -123,6 +123,9 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
    */
   readonly sharedModel: ExampleDoc = ExampleDoc.create();
 
+  get getdocs(): ExampleDoc {
+    return this.sharedModel;
+  }
   /**
    * The client ID from the document
    *

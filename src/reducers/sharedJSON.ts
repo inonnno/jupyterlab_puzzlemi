@@ -5,14 +5,14 @@ export interface IJSONDocsState {
   problems: Problem[] | null;
 }
 const initialState: IJSONDocsState = {
-  PuzzleDoc: null,
+  PuzzleDoc: PuzzleDocModel.getdocs(),
   problems: null
 };
 
 export const shareJSONDocs = (state: IJSONDocsState = initialState, action) => {
   switch (action.type) {
     case 'AddTextResponseProblem':
-      return { problems: state.problems };
+      return { ...state, problems: state.problems };
     default:
       return state;
   }

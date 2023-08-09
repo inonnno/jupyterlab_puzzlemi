@@ -46,7 +46,6 @@ const PMApplication = ({
   );
   const AdminPage = (
     <div>
-      <CodeEditor />
       <button
         className="btn btn-outline-success btn-sm"
         onClick={doAddTextResponseProblem}

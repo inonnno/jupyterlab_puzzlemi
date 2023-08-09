@@ -7,13 +7,16 @@ import { ReactWidget } from '@jupyterlab/ui-components';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Widget } from '@lumino/widgets';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { rootReducer } from './reducers';
 import { App } from './components/App';
 import { setIsAdmin } from './actions/users_actions';
+import { persistStore, persistReducer } from 'redux-persist';
+import thunkMiddleware from 'redux-thunk';
 /**
  * DocumentWidget: widget that represents the view or editor for a file type.
  */
+
 export class PuzzleDocWidget extends DocumentWidget<
   PuzzlePanel,
   PuzzleDocModel
@@ -62,13 +65,15 @@ export class PuzzlePanel extends ReactWidget {
     this._onContentChanged();
     this.node.appendChild(this._page);
   }
-  store = createStore(rootReducer);
+  middleware = [thunkMiddleware];
+  store = createStore(rootReducer, applyMiddleware(...this.middleware));
+
   dispatch = this.store.dispatch;
 
   render(): JSX.Element {
     return (
       <Provider store={this.store}>
-        <App content={this._model.content} />
+        <App displayed_problems={this._model.problems} />
       </Provider>
     );
   }

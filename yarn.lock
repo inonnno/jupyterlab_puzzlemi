@@ -8176,6 +8176,7 @@ __metadata:
     reduce-reducers: ^1.0.4
     redux: ^4.2.1
     redux-persist: ^6.0.0
+    redux-thunk: ^2.4.2
     rimraf: ^4.4.1
     source-map-loader: ^1.0.2
     style-loader: ^3.3.1
@@ -9797,6 +9798,15 @@ __metadata:
   peerDependencies:
     redux: ">4.0.0"
   checksum: edaf10dbf17351ce8058d0802357adae8665b3a1ff39371834e37838ddbe1a79cccbc717b8ba54acb5307651ccf51d0f7dc1cbc8dbae0726ff952d11ef61c6b8
+  languageName: node
+  linkType: hard
+
+"redux-thunk@npm:^2.4.2":
+  version: 2.4.2
+  resolution: "redux-thunk@npm:2.4.2"
+  peerDependencies:
+    redux: ^4
+  checksum: c7f757f6c383b8ec26152c113e20087818d18ed3edf438aaad43539e9a6b77b427ade755c9595c4a163b6ad3063adf3497e5fe6a36c68884eb1f1cfb6f049a5c
   languageName: node
   linkType: hard
 

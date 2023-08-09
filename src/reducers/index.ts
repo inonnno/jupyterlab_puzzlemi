@@ -5,11 +5,11 @@ import reduceReducers from 'reduce-reducers';
 
 export interface IPMState {
   users: IUsers;
- // shareJSONDocs: IJSONDocsState;
+  shareJSONDocs: IJSONDocsState;
 }
 
 const combinedReducers = combineReducers({
-  //shareJSONDocs,
+  shareJSONDocs,
   users
 });
 

@@ -55,7 +55,7 @@ const PMApplication = ({
       </button>
     </div>
   );
-  const DisplayQuestions = () => (
+  const DisplayProblems = () => (
     <div>
       {displayed_problems.map((problem, index) => (
         <div key={index}>
@@ -67,7 +67,7 @@ const PMApplication = ({
   );
   const NoneAdminPage = (
     <div>
-      <DisplayQuestions />
+      <DisplayProblems />
     </div>
   );
 

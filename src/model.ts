@@ -13,7 +13,7 @@ import PuzzleDocInstance from './createdoc';
 import * as Y from 'yjs';
 
 export type Problem = {
-  id: number;
+  id: string;
   question: string;
   solution: string;
   answer: string;
@@ -182,16 +182,6 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   get stateChanged(): ISignal<this, IChangedArgs<any>> {
     return this._stateChanged;
   }
-
-  submitObjectInsertOp(value: Problem): void {
-    const currentProblems: Problem[] = this.sharedModel.get('problems');
-    const content = this.sharedModel.get('content');
-    console.log('content:', content);
-    console.log('currentProblems:', currentProblems);
-    const newProblems: Problem[] = [...currentProblems, value];
-    this.sharedModel.set('problems', newProblems);
-  }
-
   /**
    * Dispose of the resources held by the model.
    */
@@ -406,7 +396,6 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
   get(key: string): any {
     const data = this._content.get(key);
     if (key === 'problems') {
-      console.log('data:', data);
       return JSON.parse(data) ?? [];
     } else {
       return data ?? '';
@@ -423,31 +412,20 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
   set(key: 'problems', value: Partial<Problem>[]): void;
   set(key: string, value: string | Partial<Problem>[]): void {
     if (key === 'problems') {
-      console.log('problems key');
       this._content.set(key, JSON.stringify(value));
     } else {
-      console.log('any other key');
       this._content.set(key, value);
     }
   }
 
   //add a new problem to the list
   submitObjectInsertOp(value: Problem): void {
-    const p: Partial<Problem>[] = [{ id: 1, question: 'test' }];
-    p.push(value);
-    //this._content.set('problems', p);
-    console.log('p:', p);
-    let currentProblems = this._content.get('problems');
+    let currentProblems = this.get('problems');
     console.log('currentProblems:', currentProblems);
-    if (Array.isArray(currentProblems) === false) {
-      console.log('typeof currentProblems:', typeof currentProblems);
-    }
-    /*
-    const content = this._content.get('content');
-    console.log('content:', value);
+    console.log('typeof currentProblems:', Array.isArray(currentProblems));
     currentProblems.push(value);
     console.log('newProblems:', currentProblems);
-    */
+    this.set('problems', currentProblems);
   }
 
   /**

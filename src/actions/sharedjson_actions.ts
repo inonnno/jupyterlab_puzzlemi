@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 //import { IProblem, IProblemType } from '../reducers/problems';
 import { Problem } from '../model';
-//import uuid from '../utils/uuid';
+import uuid from '../utils/uuid';
 import { PuzzleDocModel } from '../model';
 
 export interface IAddTextResponseProblem {
@@ -14,8 +14,8 @@ export function addTextResponseProblem() {
     const PuzzleDoc = shareJSONDocs.PuzzleDoc;
 
     const newProblem: Problem = {
-      id: 3,
-      question: '',
+      id: uuid(),
+      question: '*no description*',
       solution: '',
       answer: ''
     };

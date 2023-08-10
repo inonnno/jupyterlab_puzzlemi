@@ -2,22 +2,28 @@
   "content": "test",
   "problems": [
     {
-      "id": 1,
-      "question": "Question first",
-      "solution": "Solution1",
-      "answer": "Answer1"
+      "id": "ba072083-d320-3a7b-2a80-88fb1e73938a",
+      "question": "",
+      "solution": "",
+      "answer": ""
     },
     {
-      "id": 2,
-      "question": "Question2",
-      "solution": "Solution2",
-      "answer": "Answer2"
+      "id": "da11925f-59a9-7765-f6ad-bc62937c7203",
+      "question": "",
+      "solution": "",
+      "answer": ""
     },
     {
-      "id": 3,
-      "question": "Question3",
-      "solution": "Solution3",
-      "answer": "Answer3"
+      "id": "f2d67ba0-37ef-0ecc-47a5-a2b397f72c9d",
+      "question": "*no description*",
+      "solution": "",
+      "answer": ""
+    },
+    {
+      "id": "b6a15970-eee4-90f3-ed2e-ac93a065ff35",
+      "question": "*no description*",
+      "solution": "",
+      "answer": ""
     }
   ]
 }

@@ -59,21 +59,32 @@ const PMApplication = ({
     <div>
       {displayed_problems.map((problem, index) => (
         <div key={index}>
-          {problem.question}
-          <CodeEditor />
+          {!isAdmin ? (
+            <div>
+              {problem.question}
+              <CodeEditor value="*type in answer here*" />
+            </div>
+          ) : (
+            <div>
+              <CodeEditor value="*type in question here*" />
+            </div>
+          )}
         </div>
       ))}
     </div>
   );
-  const NoneAdminPage = (
-    <div>
-      <DisplayProblems />
-    </div>
-  );
+  const NoneAdminPage = <div></div>;
 
   return (
     <div className="container">
       <span className="nav-item">{editButton}</span>
+      <div className="problems">
+        {displayed_problems && displayed_problems.length ? (
+          <DisplayProblems />
+        ) : (
+          <div className="container no-problems">(no problems yet)</div>
+        )}
+      </div>
       {isAdmin ? <div>{AdminPage}</div> : <p>{NoneAdminPage}</p>}
     </div>
   );

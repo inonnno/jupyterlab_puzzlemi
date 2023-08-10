@@ -21,13 +21,13 @@ export class CodeEditor extends React.Component<
 > {
   public static defaultProps: ICodeEditorProps = {
     options: {
-      height: 10,
+      height: 20,
       indentUnit: 4,
       lineNumbers: true,
       lineWrapping: true,
       mode: 'python',
       viewportMargin: 50,
-      width: 10,
+      width: 300,
       onChangeCallback: null,
       readOnly: false,
       autoRefresh: true
@@ -60,7 +60,7 @@ export class CodeEditor extends React.Component<
       <div>
         <textarea
           ref={(ref: HTMLTextAreaElement) => (this.codeNode = ref)}
-          defaultValue="*type in here*"
+          defaultValue={this.props.value}
           autoComplete="off"
         />
       </div>

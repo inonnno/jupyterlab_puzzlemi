@@ -2,6 +2,7 @@ import { Dispatch } from 'redux';
 //import { IProblem, IProblemType } from '../reducers/problems';
 import { Problem } from '../model';
 //import uuid from '../utils/uuid';
+import { PuzzleDocModel } from '../model';
 
 export interface IAddTextResponseProblem {
   type: 'AddTextResponseProblem';

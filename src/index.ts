@@ -13,6 +13,8 @@ import { Token } from '@lumino/coreutils';
 import { ExampleWidgetFactory, ExampleDocModelFactory } from './factory';
 import { ExampleDoc } from './model';
 import { PuzzleDocWidget } from './widget';
+import PuzzleDocInstance from './createdoc';
+//import modelFactory from './createmodelfactory';
 
 /**
  * The name of the factory that creates editor widgets.
@@ -79,6 +81,7 @@ const extension: JupyterFrontEndPlugin<void> = {
     }
 
     // Creating and registering the model factory for our custom DocumentModel
+    //const modelFactory = new ExampleDocModelFactory();
     const modelFactory = new ExampleDocModelFactory();
     app.docRegistry.addModelFactory(modelFactory);
 

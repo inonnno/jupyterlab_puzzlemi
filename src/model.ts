@@ -8,8 +8,16 @@ import { PartialJSONObject, PartialJSONValue } from '@lumino/coreutils';
 
 import { ISignal, Signal } from '@lumino/signaling';
 
+import PuzzleDocInstance from './createdoc';
+
 import * as Y from 'yjs';
 
+export type Problem = {
+  id: number;
+  question: string;
+  solution: string;
+  answer: string;
+};
 /**
  * Document structure
  */
@@ -17,17 +25,6 @@ export type SharedObject = {
   problems: Problem[];
   content: string;
 };
-
-/**
- * Position
- */
-export type Problem = {
-  id: number;
-  question: string;
-  solution: string;
-  answer: string;
-};
-
 /**
  * DocumentModel: this Model represents the content of the file
  */
@@ -43,7 +40,8 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     if (sharedModel) {
       this.sharedModel = sharedModel;
     } else {
-      this.sharedModel = ExampleDoc.create();
+      this.sharedModel = PuzzleDocInstance;
+      // ExampleDoc.create();
     }
 
     // Listening for changes on the shared model to propagate them
@@ -121,7 +119,8 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   /**
    * The shared document model.
    */
-  readonly sharedModel: ExampleDoc = ExampleDoc.create();
+  readonly sharedModel: ExampleDoc = PuzzleDocInstance;
+  //readonly sharedModel: ExampleDoc = ExampleDoc.create();
 
   get getdocs(): ExampleDoc {
     return this.sharedModel;
@@ -182,6 +181,15 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
    */
   get stateChanged(): ISignal<this, IChangedArgs<any>> {
     return this._stateChanged;
+  }
+
+  submitObjectInsertOp(value: Problem): void {
+    const currentProblems: Problem[] = this.sharedModel.get('problems');
+    const content = this.sharedModel.get('content');
+    console.log('content:', content);
+    console.log('currentProblems:', currentProblems);
+    const newProblems: Problem[] = [...currentProblems, value];
+    this.sharedModel.set('problems', newProblems);
   }
 
   /**
@@ -398,6 +406,7 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
   get(key: string): any {
     const data = this._content.get(key);
     if (key === 'problems') {
+      console.log('data:', data);
       return JSON.parse(data) ?? [];
     } else {
       return data ?? '';
@@ -413,14 +422,32 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
   set(key: 'content', value: string): void;
   set(key: 'problems', value: Partial<Problem>[]): void;
   set(key: string, value: string | Partial<Problem>[]): void {
-    this._content.set(key, key === 'problems' ? JSON.stringify(value) : value);
+    if (key === 'problems') {
+      console.log('problems key');
+      this._content.set(key, JSON.stringify(value));
+    } else {
+      console.log('any other key');
+      this._content.set(key, value);
+    }
   }
 
   //add a new problem to the list
   submitObjectInsertOp(value: Problem): void {
-    const currentProblems: Problem[] = this._content.get('problems');
-    const newProblems: Problem[] = [...currentProblems, value];
-    this._content.set('problems', newProblems);
+    const p: Partial<Problem>[] = [{ id: 1, question: 'test' }];
+    p.push(value);
+    //this._content.set('problems', p);
+    console.log('p:', p);
+    let currentProblems = this._content.get('problems');
+    console.log('currentProblems:', currentProblems);
+    if (Array.isArray(currentProblems) === false) {
+      console.log('typeof currentProblems:', typeof currentProblems);
+    }
+    /*
+    const content = this._content.get('content');
+    console.log('content:', value);
+    currentProblems.push(value);
+    console.log('newProblems:', currentProblems);
+    */
   }
 
   /**
@@ -433,6 +460,10 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
 
     // Checks which object changed and propagates them.
     if (event.keysChanged.has('problems')) {
+      console.log(
+        'problems changed',
+        Array.isArray(this._content.get('problems'))
+      );
       changes.problemsChange = JSON.parse(this._content.get('problems'));
     }
 

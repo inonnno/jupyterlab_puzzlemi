@@ -5,19 +5,20 @@ import { addTextResponseProblem } from '../actions/sharedjson_actions';
 import { IPMState } from '../reducers';
 import { Problem } from '../model';
 import { CodeEditor } from './CodeEditor';
+import { PuzzleDocModel } from '../model';
 
 interface IPMAppOwnProps {}
 interface IPMAppProps extends IPMAppOwnProps {
   isAdmin: boolean;
   dispatch: React.Dispatch<any>;
-  //content: string;
+  content: PuzzleDocModel;
   displayed_problems: Problem[];
 }
 
 const PMApplication = ({
   isAdmin,
   dispatch,
-  //content,
+  content,
   displayed_problems
 }: IPMAppProps): React.ReactElement => {
   const handleEditChange = (event: any) => {
@@ -81,7 +82,7 @@ const PMApplication = ({
 const mapStateToProps = (state: IPMState) => {
   return {
     isAdmin: state.users.isAdmin,
-    problems: state.shareJSONDocs.problems
+    PuzzleDoc: state.shareJSONDocs.PuzzleDoc
   };
 };
 export const App = reactRedux.connect(mapStateToProps)(PMApplication);

@@ -396,7 +396,12 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
   get(key: string): any {
     const data = this._content.get(key);
     if (key === 'problems') {
-      return JSON.parse(data) ?? [];
+      try {
+        return JSON.parse(data) ?? [];
+      } catch (error) {
+        console.error('Error parsing JSON:', error);
+        return [];
+      }
     } else {
       return data ?? '';
     }
@@ -421,10 +426,7 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
   //add a new problem to the list
   submitObjectInsertOp(value: Problem): void {
     let currentProblems = this.get('problems');
-    console.log('currentProblems:', currentProblems);
-    console.log('typeof currentProblems:', Array.isArray(currentProblems));
     currentProblems.push(value);
-    console.log('newProblems:', currentProblems);
     this.set('problems', currentProblems);
   }
 
@@ -438,10 +440,6 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
 
     // Checks which object changed and propagates them.
     if (event.keysChanged.has('problems')) {
-      console.log(
-        'problems changed',
-        Array.isArray(this._content.get('problems'))
-      );
       changes.problemsChange = JSON.parse(this._content.get('problems'));
     }
 

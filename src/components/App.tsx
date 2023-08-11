@@ -85,7 +85,7 @@ const PMApplication = ({
           <div className="container no-problems">(no problems yet)</div>
         )}
       </div>
-      {isAdmin ? <div>{AdminPage}</div> : <p>{NoneAdminPage}</p>}
+      {isAdmin ? <div>{AdminPage}</div> : <div>{NoneAdminPage}</div>}
     </div>
   );
 };

@@ -11,15 +11,13 @@ interface IPMAppOwnProps {}
 interface IPMAppProps extends IPMAppOwnProps {
   isAdmin: boolean;
   dispatch: React.Dispatch<any>;
-  content: PuzzleDocModel;
-  displayed_problems: Problem[];
+  problems: Problem[];
 }
 
 const PMApplication = ({
   isAdmin,
   dispatch,
-  content,
-  displayed_problems
+  problems
 }: IPMAppProps): React.ReactElement => {
   const handleEditChange = (event: any) => {
     const checked = event.target.checked;
@@ -57,7 +55,7 @@ const PMApplication = ({
   );
   const DisplayProblems = () => (
     <div>
-      {displayed_problems.map((problem, index) => (
+      {problems.map((problem, index) => (
         <div key={index}>
           {!isAdmin ? (
             <div>
@@ -79,7 +77,7 @@ const PMApplication = ({
     <div className="container">
       <span className="nav-item">{editButton}</span>
       <div className="problems">
-        {displayed_problems && displayed_problems.length ? (
+        {problems && problems.length ? (
           <DisplayProblems />
         ) : (
           <div className="container no-problems">(no problems yet)</div>
@@ -93,7 +91,8 @@ const PMApplication = ({
 const mapStateToProps = (state: IPMState) => {
   return {
     isAdmin: state.users.isAdmin,
-    PuzzleDoc: state.shareJSONDocs.PuzzleDoc
+    PuzzleDoc: state.shareJSONDocs.PuzzleDoc,
+    problems: state.shareJSONDocs.PuzzleDoc.get('problems')
   };
 };
 export const App = reactRedux.connect(mapStateToProps)(PMApplication);

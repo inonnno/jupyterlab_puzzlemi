@@ -4,7 +4,7 @@ export interface IUsers {
   isAdmin: boolean;
 }
 const initialState: IUsers = {
-  isAdmin: false
+  isAdmin: true
 };
 export const users = (
   state: IUsers = initialState,

@@ -2,34 +2,10 @@
   "content": "test",
   "problems": [
     {
-      "id": "ba072083-d320-3a7b-2a80-88fb1e73938a",
-      "question": "question1",
-      "solution": "",
-      "answer": ""
-    },
-    {
-      "id": "da11925f-59a9-7765-f6ad-bc62937c7203",
-      "question": "question2",
-      "solution": "",
-      "answer": ""
-    },
-    {
-      "id": "f0b8908e-c26a-fd26-6250-8de2b908aaf3",
+      "id": "97eb1a4a-9c68-c4ee-aa59-2cbf41bc90b7",
       "question": "*no description*",
-      "solution": "",
-      "answer": ""
-    },
-    {
-      "id": "3346ba48-04c4-55bf-57e5-289040f3f789",
-      "question": "*no description*",
-      "solution": "",
-      "answer": ""
-    },
-    {
-      "id": "b25d3be6-6b45-7c85-d6e3-2fd0f9b76532",
-      "question": "*no description*",
-      "solution": "",
-      "answer": ""
+      "solution": "*",
+      "answer": "*"
     }
   ]
 }

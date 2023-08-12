@@ -396,11 +396,15 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
   get(key: string): any {
     const data = this._content.get(key);
     if (key === 'problems') {
-      try {
-        return JSON.parse(data) ?? [];
-      } catch (error) {
-        console.error('Error parsing JSON:', error);
-        return [];
+      if (data === undefined) {
+        return '';
+      } else {
+        try {
+          return JSON.parse(data) ?? [];
+        } catch (error) {
+          console.error('Error parsing JSON:', error);
+          return [];
+        }
       }
     } else {
       return data ?? '';

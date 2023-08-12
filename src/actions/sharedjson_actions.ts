@@ -16,10 +16,15 @@ export function addTextResponseProblem() {
     const newProblem: Problem = {
       id: uuid(),
       question: '*no description*',
-      solution: '',
-      answer: ''
+      solution: '*',
+      answer: '*'
     };
 
-    await PuzzleDoc.submitObjectInsertOp(newProblem);
+    PuzzleDoc.submitObjectInsertOp(newProblem);
+
+    dispatch({
+      type: 'ProblemAdded',
+      problem: newProblem
+    });
   };
 }

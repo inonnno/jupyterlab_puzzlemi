@@ -6,18 +6,17 @@ import { DocumentRegistry } from '@jupyterlab/docregistry';
 
 export interface IJSONDocsState {
   PuzzleDoc: ExampleDoc;
-  //problems: Problem[] | null;
+  problems: Problem[];
 }
 const initialState: IJSONDocsState = {
-  PuzzleDoc: PuzzleDocInstance
-  //problems: null
+  PuzzleDoc: PuzzleDocInstance,
+  problems: PuzzleDocInstance.get('problems')
 };
 
 export const shareJSONDocs = (state: IJSONDocsState = initialState, action) => {
   switch (action.type) {
     case 'AddTextResponseProblem':
-      return { ...state };
-    //, problems: state.PuzzleDoc.get('problems')
+      return { ...state, problems: state.PuzzleDoc.get('problems') };
     default:
       return state;
   }

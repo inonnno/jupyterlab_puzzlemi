@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 //import { IProblem, IProblemType } from '../reducers/problems';
 import { Problem } from '../model';
 import uuid from '../utils/uuid';
-import { PuzzleDocModel } from '../model';
+import { IProblemType } from '../model';
 
 export interface IAddTextResponseProblem {
   type: 'AddTextResponseProblem';
@@ -15,9 +15,8 @@ export function addTextResponseProblem() {
 
     const newProblem: Problem = {
       id: uuid(),
-      question: '*no description*',
-      solution: '*',
-      answer: '*'
+      description: 'here is a new problem',
+      problemType: IProblemType.TextResponse
     };
 
     PuzzleDoc.submitObjectInsertOp(newProblem);

@@ -39,7 +39,7 @@ const Problems = ({
         <div key={index}>
           {!isAdmin ? (
             <div>
-              {problem.question}
+              {problem.description}
               <CodeEditor value="*type in answer here*" />
             </div>
           ) : (

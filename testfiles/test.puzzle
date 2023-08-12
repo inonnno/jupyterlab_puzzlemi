@@ -1,23 +1,12 @@
 {
-  "content": "test",
   "problems": [
     {
-      "id": 1,
-      "question": "Question first",
-      "solution": "Solution1",
-      "answer": "Answer1"
+      "description": "blablabla",
+      "problemType": "text-response"
     },
     {
-      "id": 2,
-      "question": "Question2",
-      "solution": "Solution2",
-      "answer": "Answer2"
-    },
-    {
-      "id": 3,
-      "question": "Question3",
-      "solution": "Solution3",
-      "answer": "Answer3"
+      "description": "here is a new problem",
+      "problemType": "text-response"
     }
   ]
 }

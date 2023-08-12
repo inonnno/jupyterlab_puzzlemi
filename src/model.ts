@@ -11,19 +11,55 @@ import { ISignal, Signal } from '@lumino/signaling';
 import PuzzleDocInstance from './createdoc';
 
 import * as Y from 'yjs';
-
-export type Problem = {
+export interface ICodeProblem {
   id: string;
-  question: string;
-  solution: string;
-  answer: string;
-};
+  description: string;
+  givenCode: string;
+  problemType: IProblemType.Code;
+}
+
+export interface ITextResponseProblem {
+  id: string;
+  description: string;
+  problemType: IProblemType.TextResponse;
+}
+
+export interface IMultipleChoiceProblem {
+  id: string;
+  description: string;
+  options: IMultipleChoiceOption[];
+  problemType: IProblemType.MultipleChoice;
+  selectionType: IMultipleChoiceSelectionType;
+  revealSolution: boolean;
+}
+
+export enum IMultipleChoiceSelectionType {
+  Single = 'single',
+  Multiple = 'multiple'
+}
+
+export enum IProblemType {
+  TextResponse = 'text-response',
+  MultipleChoice = 'multiple-choice',
+  Code = 'code'
+}
+
+export interface IMultipleChoiceOption {
+  id: string;
+  description: string;
+  freeResponse?: string | null;
+  isCorrect: boolean;
+}
+
+export type Problem =
+  | ICodeProblem
+  | ITextResponseProblem
+  | IMultipleChoiceProblem;
 /**
  * Document structure
  */
 export type SharedObject = {
   problems: Problem[];
-  content: string;
 };
 /**
  * DocumentModel: this Model represents the content of the file
@@ -214,13 +250,37 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
   toString(): string {
     const problems = this.sharedModel.get('problems');
     const obj = {
-      content: this.sharedModel.get('content') ?? '',
-      problems: problems.map(problem => ({
-        id: problem.id,
-        question: problem.question,
-        solution: problem.solution,
-        answer: problem.answer
-      }))
+      problems: problems.map(problem => {
+        switch (problem.problemType) {
+          case IProblemType.Code:
+            return {
+              description: problem.description,
+              givenCode: (problem as ICodeProblem).givenCode,
+              problemType: IProblemType.Code
+            };
+          case IProblemType.TextResponse:
+            return {
+              description: problem.description,
+              problemType: IProblemType.TextResponse
+            };
+          case IProblemType.MultipleChoice:
+            const multipleChoiceProblem = problem as IMultipleChoiceProblem;
+            return {
+              description: multipleChoiceProblem.description,
+              options: multipleChoiceProblem.options.map(option => ({
+                id: option.id,
+                description: option.description,
+                freeResponse: option.freeResponse || null,
+                isCorrect: option.isCorrect
+              })),
+              problemType: IProblemType.MultipleChoice,
+              selectionType: multipleChoiceProblem.selectionType,
+              revealSolution: multipleChoiceProblem.revealSolution
+            };
+          default:
+            throw new Error(`Unknown problem type:`);
+        }
+      })
     };
     return JSON.stringify(obj, null, 2);
   }

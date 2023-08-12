@@ -1,7 +1,8 @@
 import { Problem } from '../model';
+import PuzzleDocInstance from '../createdoc';
 
 const initialState = {
-  problems: [] as Problem[]
+  problems: PuzzleDocInstance.get('problems') as Problem[]
 };
 
 export const ProblemAdded = (state = initialState, action) => {

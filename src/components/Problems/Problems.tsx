@@ -5,7 +5,7 @@ import { IPMState } from '../../reducers';
 import { Problem } from '../../model';
 import { CodeEditor } from '../CodeEditor';
 import { PuzzleDocModel } from '../../model';
-
+import ProblemDescription from './ProblemDescription';
 interface IProblemsOwnProps {}
 interface IProblemsProps extends IProblemsOwnProps {
   isAdmin: boolean;
@@ -38,16 +38,7 @@ const Problems = ({
     <div>
       {problems.map((problem, index) => (
         <div key={index}>
-          {!isAdmin ? (
-            <div>
-              {problem.description}
-              <CodeEditor value="*type in answer here*" />
-            </div>
-          ) : (
-            <div>
-              <CodeEditor value="*type in question here*" />
-            </div>
-          )}
+          <ProblemDescription problem={problem} index={index} />
         </div>
       ))}
     </div>

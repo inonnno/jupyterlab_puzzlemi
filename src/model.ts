@@ -493,7 +493,14 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
     currentProblems.push(value);
     this.set('problems', currentProblems);
   }
-
+  submitProblemDescription(value: string, index: number): void {
+    let currentProblems = this.get('problems');
+    currentProblems[index].description = value;
+    this.set('problems', currentProblems);
+  }
+  getProblemDescription(index: number): string {
+    return this.get('problems')[index].description;
+  }
   /**
    * Handle a change.
    *

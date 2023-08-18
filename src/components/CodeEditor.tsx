@@ -1,15 +1,22 @@
 import * as CodeMirror from 'codemirror';
 import * as React from 'react';
 import 'codemirror/lib/codemirror.css';
+import PuzzleDocInstance from '../createdoc';
+export interface ICodeChangeEvent {
+  value: string;
+}
 interface ICodeEditorProps {
   options?: any;
   value?: string;
   flag?: any;
   run?: () => void;
+  onChange?: (e: ICodeChangeEvent) => void;
   refreshDoc?: any;
   focusOnMount?: boolean;
   selectOnFocus: boolean;
   captureTabs: boolean;
+  addproblemdescription: boolean;
+  index: number;
 }
 
 interface ICodeEditorState {
@@ -21,9 +28,9 @@ export class CodeEditor extends React.Component<
 > {
   public static defaultProps: ICodeEditorProps = {
     options: {
-      height: 20,
+      height: 60,
       indentUnit: 4,
-      lineNumbers: true,
+      lineNumbers: false,
       lineWrapping: true,
       mode: 'python',
       viewportMargin: 50,
@@ -32,9 +39,11 @@ export class CodeEditor extends React.Component<
       readOnly: false,
       autoRefresh: true
     },
-    value: '',
+    value: '*',
     selectOnFocus: false,
-    captureTabs: true
+    captureTabs: true,
+    addproblemdescription: false,
+    index: -1
   };
   private codeMirror!: CodeMirror.EditorFromTextArea;
   private codeNode!: HTMLTextAreaElement;
@@ -45,22 +54,39 @@ export class CodeEditor extends React.Component<
       code: this.props.value || ''
     };
   }
-  handleEditorChange(): void {
-    console.log('editor changed');
-  }
+
   componentDidMount(): void {
-    this.codeMirror = CodeMirror(this.codeNode);
-    //this.codeMirror.on('change', this.handleEditorChange);
+    this.codeMirror = CodeMirror.fromTextArea(
+      this.codeNode,
+      this.props.options
+    );
+    this.codeMirror.setSize(
+      this.props.options.width,
+      this.props.options.height
+    );
+    this.codeMirror.on('change', this.handleEditorChange);
   }
+  editorcontent: string = PuzzleDocInstance.getProblemDescription(
+    this.props.index
+  );
+  handleEditorChange = () => {
+    this.editorcontent = this.codeMirror.getValue();
+    if (this.props.addproblemdescription === true) {
+      PuzzleDocInstance.submitProblemDescription(
+        this.editorcontent,
+        this.props.index
+      );
+    }
+  };
 
   render(): React.ReactNode {
+    const containerStyle = { border: '1px solid #000' };
     return (
-      <div>
+      <div style={containerStyle}>
         <textarea
           ref={(ref: HTMLTextAreaElement) => (this.codeNode = ref)}
-          defaultValue={this.props.value}
+          defaultValue={this.editorcontent}
           autoComplete="off"
-          style={{ width: '300px', height: '30px' }}
         />
       </div>
     );

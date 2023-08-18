@@ -1,11 +1,7 @@
 {
   "problems": [
     {
-      "description": "here is a new problem",
-      "problemType": "text-response"
-    },
-    {
-      "description": "here is a new problem",
+      "description": "question1",
       "problemType": "text-response"
     }
   ]

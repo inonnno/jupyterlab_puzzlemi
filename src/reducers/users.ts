@@ -4,7 +4,7 @@ export interface IUsers {
   isAdmin: boolean;
 }
 const initialState: IUsers = {
-  isAdmin: false
+  isAdmin: true
 };
 export const users = (
   state: IUsers = initialState,
@@ -12,6 +12,7 @@ export const users = (
 ) => {
   switch (action.type) {
     case 'SET_IS_ADMIN':
+      console.log('SET_IS_ADMIN');
       return { isAdmin: action.Admin };
     default:
       return state;

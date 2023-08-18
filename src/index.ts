@@ -13,8 +13,7 @@ import { Token } from '@lumino/coreutils';
 import { ExampleWidgetFactory, ExampleDocModelFactory } from './factory';
 import { ExampleDoc } from './model';
 import { PuzzleDocWidget } from './widget';
-import PuzzleDocInstance from './createdoc';
-//import modelFactory from './createmodelfactory';
+import store from './store';
 
 /**
  * The name of the factory that creates editor widgets.
@@ -46,16 +45,6 @@ const extension: JupyterFrontEndPlugin<void> = {
     const namespace = 'documents-example';
     // Creating the tracker for the document
     const tracker = new WidgetTracker<PuzzleDocWidget>({ namespace });
-
-    // Handle state restoration.
-    if (restorer) {
-      // When restoring the app, if the document was open, reopen it
-      restorer.restore(tracker, {
-        command: 'docmanager:open',
-        args: widget => ({ path: widget.context.path, factory: FACTORY }),
-        name: widget => widget.context.path
-      });
-    }
 
     // register the filetype
     app.docRegistry.addFileType({
@@ -105,6 +94,18 @@ const extension: JupyterFrontEndPlugin<void> = {
 
     // Registering the widget factory
     app.docRegistry.addWidgetFactory(widgetFactory);
+
+    // Handle state restoration.
+    if (restorer) {
+      // When restoring the app, if the document was open, reopen it
+      restorer.restore(tracker, {
+        command: 'docmanager:open',
+        args: widget => ({ path: widget.context.path, factory: FACTORY }),
+        name: widget => widget.context.path
+      });
+      console.log('restoring state');
+      store.dispatch({ type: 'RESTORE_STATE' });
+    }
   }
 };
 

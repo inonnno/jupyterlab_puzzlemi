@@ -3,6 +3,7 @@ import { users, IUsers } from './users';
 import { IJSONDocsState, shareJSONDocs } from './sharedJSON';
 import reduceReducers from 'reduce-reducers';
 import { ProblemAdded } from './ProblemAdded';
+import { RESTORE_STATE } from './restore_state';
 
 export interface IPMState {
   users: IUsers;
@@ -12,7 +13,8 @@ export interface IPMState {
 const combinedReducers = combineReducers({
   shareJSONDocs,
   users,
-  ProblemAdded
+  ProblemAdded,
+  RESTORE_STATE
 });
 
 export const rootReducer = reduceReducers(combinedReducers) as any;

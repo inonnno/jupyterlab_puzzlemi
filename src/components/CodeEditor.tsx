@@ -39,20 +39,18 @@ export class CodeEditor extends React.Component<
   private codeMirror!: CodeMirror.EditorFromTextArea;
   private codeNode!: HTMLTextAreaElement;
 
-  constructor(props: any) {
+  constructor(props = CodeEditor.defaultProps) {
     super(props);
     this.state = {
       code: this.props.value || ''
     };
   }
-
+  handleEditorChange(): void {
+    console.log('editor changed');
+  }
   componentDidMount(): void {
-    this.codeMirror = CodeMirror(this.codeNode, this.props.options);
-    this.codeMirror.setValue(this.state.code);
-    this.codeMirror.setSize(
-      this.props.options.width,
-      this.props.options.height
-    );
+    this.codeMirror = CodeMirror(this.codeNode);
+    //this.codeMirror.on('change', this.handleEditorChange);
   }
 
   render(): React.ReactNode {
@@ -62,6 +60,7 @@ export class CodeEditor extends React.Component<
           ref={(ref: HTMLTextAreaElement) => (this.codeNode = ref)}
           defaultValue={this.props.value}
           autoComplete="off"
+          style={{ width: '300px', height: '30px' }}
         />
       </div>
     );

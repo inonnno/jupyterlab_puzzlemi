@@ -18,6 +18,7 @@ const Problems = ({
   dispatch,
   problems
 }: IProblemsProps): React.ReactElement => {
+  const problem = [];
   const doAddTextResponseProblem = (): void => {
     dispatch(addTextResponseProblem());
     console.log('doAddTextResponseProblem');
@@ -53,16 +54,20 @@ const Problems = ({
   );
   const NoneAdminPage = <div></div>;
 
+  if (problems && problems.length) {
+    console.log('Problems exist');
+  } else {
+    console.log('No problems');
+  }
   return (
     <div className="container">
       <div className="problems">
         {problems && problems.length ? (
-          <DisplayProblems />
-        ) : (
-          <div className="container no-problems">
-            (no problems yet)
+          <div>
             <DisplayProblems />
           </div>
+        ) : (
+          <div className="container no-problems">(no problems yet)</div>
         )}
       </div>
       {isAdmin ? <div>{AdminPage}</div> : <div>{NoneAdminPage}</div>}

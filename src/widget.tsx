@@ -13,6 +13,7 @@ import { App } from './components/App';
 import { setIsAdmin } from './actions/users_actions';
 import { persistStore, persistReducer } from 'redux-persist';
 import thunkMiddleware from 'redux-thunk';
+import store from './store';
 /**
  * DocumentWidget: widget that represents the view or editor for a file type.
  */
@@ -65,14 +66,14 @@ export class PuzzlePanel extends ReactWidget {
     this._onContentChanged();
     this.node.appendChild(this._page);
   }
-  middleware = [thunkMiddleware];
-  store = createStore(rootReducer, applyMiddleware(...this.middleware));
+  //middleware = [thunkMiddleware];
+  //store = createStore(rootReducer, applyMiddleware(...this.middleware));
+  s = createStore(rootReducer);
 
-  dispatch = this.store.dispatch;
-
+  //dispatch = store.dispatch;
   render(): JSX.Element {
     return (
-      <Provider store={this.store}>
+      <Provider store={store}>
         <App />
       </Provider>
     );
@@ -89,11 +90,6 @@ export class PuzzlePanel extends ReactWidget {
     Signal.clearData(this);
     super.dispose();
   }
-
-  protected handleEditChange = (event: any) => {
-    const checked = event.target.checked;
-    this.dispatch(setIsAdmin(checked));
-  };
 
   /**
    * Handle event messages sent to the widget.

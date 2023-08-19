@@ -62,7 +62,7 @@ function mapStateToProps(
   const { isAdmin } = users;
   const problemsDoc = shareJSONDocs.PuzzleDoc!;
   const problems = shareJSONDocs.problems!;
-  let description = '';
+  let description = 'here is a new problem';
   if (problems[index]) {
     description = problems[index].description;
   } else {

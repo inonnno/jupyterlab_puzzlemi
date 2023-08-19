@@ -47,7 +47,7 @@ export class CodeEditor extends React.Component<
       readOnly: false,
       autoRefresh: true
     },
-    value: '*',
+    value: 'here is a new problem',
     selectOnFocus: false,
     captureTabs: true,
     addproblemdescription: false,

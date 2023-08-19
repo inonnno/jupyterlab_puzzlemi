@@ -513,7 +513,11 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
     this.set('problems', currentProblems);
   }
   getProblemDescription(index: number): string {
-    return this.get('problems')[index].description;
+    if (this.get('problems')[index].description === '') {
+      return 'here is a new problem';
+    } else {
+      return this.get('problems')[index].description;
+    }
   }
   /**
    * Handle a change.

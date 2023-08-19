@@ -5,6 +5,7 @@ import { CodeEditor } from '../CodeEditor';
 import update from 'immutability-helper';
 import { IPMState } from '../../reducers';
 import { Problem, ExampleDoc } from '../../model';
+import PuzzleDocInstance from '../../createdoc';
 
 interface IProblemDescriptionOwnProps {
   problem: Problem;
@@ -15,18 +16,27 @@ interface IProblemDescriptionProps extends IProblemDescriptionOwnProps {
   description: string;
   problemsDoc: ExampleDoc;
 }
+const index = -1;
 const ProblemDescription = ({
   problem,
   isAdmin,
   description,
   index
 }: IProblemDescriptionProps): React.ReactElement => {
+  index = index;
   if (isAdmin) {
-    const p = ['allProblems', problem.id, 'problemDetails', 'description'];
+    const ydoc = PuzzleDocInstance.getYdoc();
+    //const ytext = ydoc.getText(index.toString());
+    const provider = PuzzleDocInstance.getProvider();
     return (
       <div className="row">
         <div className="col problem-description">
-          <CodeEditor addproblemdescription={true} index={index} />
+          <CodeEditor
+            addproblemdescription={true}
+            index={index}
+            ydoc={ydoc}
+            provider={provider}
+          />
         </div>
       </div>
     );
@@ -52,8 +62,12 @@ function mapStateToProps(
   const { isAdmin } = users;
   const problemsDoc = shareJSONDocs.PuzzleDoc!;
   const problems = shareJSONDocs.problems!;
-
-  const description = problem.description;
+  let description = '';
+  if (problems[index]) {
+    description = problems[index].description;
+  } else {
+    description = problem.description;
+  }
 
   return update(givenProps, {
     $merge: { isAdmin, problemsDoc, description } as any

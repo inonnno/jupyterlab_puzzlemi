@@ -2,6 +2,12 @@ import * as CodeMirror from 'codemirror';
 import * as React from 'react';
 import 'codemirror/lib/codemirror.css';
 import PuzzleDocInstance from '../createdoc';
+import store from '../store';
+import { CodemirrorBinding } from 'y-codemirror';
+import * as Y from 'yjs';
+import { WebsocketProvider } from 'y-websocket';
+import uuid from '../utils/uuid';
+
 export interface ICodeChangeEvent {
   value: string;
 }
@@ -17,6 +23,8 @@ interface ICodeEditorProps {
   captureTabs: boolean;
   addproblemdescription: boolean;
   index: number;
+  ydoc: any;
+  provider: any;
 }
 
 interface ICodeEditorState {
@@ -43,7 +51,9 @@ export class CodeEditor extends React.Component<
     selectOnFocus: false,
     captureTabs: true,
     addproblemdescription: false,
-    index: -1
+    index: -1,
+    ydoc: null,
+    provider: null
   };
   private codeMirror!: CodeMirror.EditorFromTextArea;
   private codeNode!: HTMLTextAreaElement;
@@ -65,13 +75,18 @@ export class CodeEditor extends React.Component<
       this.props.options.height
     );
     this.codeMirror.on('change', this.handleEditorChange);
+    const ytext = this.props.ydoc.getText(this.props.index.toString());
+    const binding = new CodemirrorBinding(
+      ytext,
+      this.codeMirror,
+      this.props.provider.awareness
+    );
   }
   editorcontent: string = PuzzleDocInstance.getProblemDescription(
     this.props.index
   );
   handleEditorChange = () => {
     this.editorcontent = this.codeMirror.getValue();
-
     if (this.props.addproblemdescription === true) {
       PuzzleDocInstance.submitProblemDescription(
         this.editorcontent,

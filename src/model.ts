@@ -5,10 +5,11 @@ import { IChangedArgs } from '@jupyterlab/coreutils';
 import { DocumentRegistry } from '@jupyterlab/docregistry';
 
 import { PartialJSONObject, PartialJSONValue } from '@lumino/coreutils';
-
+import { CodemirrorBinding } from 'y-codemirror';
 import { ISignal, Signal } from '@lumino/signaling';
 
 import PuzzleDocInstance from './createdoc';
+import { WebsocketProvider } from 'y-websocket';
 
 import * as Y from 'yjs';
 export interface ICodeProblem {
@@ -421,10 +422,23 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
     // Creating a new shared object and listen to its changes
     this._content = this.ydoc.getMap('content');
     this._content.observe(this._contentObserver);
+    this._provider = new WebsocketProvider(
+      'ws://localhost:1234',
+      'puzzlemi_jupyterlab',
+      this.ydoc
+    );
+    this._ytext = this.ydoc.getText('codemirror');
+    console.log(this._provider);
   }
 
   readonly version: string = '1.0.0';
 
+  getYdoc() {
+    return this.ydoc;
+  }
+  getProvider(): WebsocketProvider {
+    return this._provider;
+  }
   /**
    * Dispose of the resources.
    */
@@ -522,4 +536,6 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
   };
 
   private _content: Y.Map<any>;
+  private _provider: WebsocketProvider;
+  private _ytext: Y.Text;
 }

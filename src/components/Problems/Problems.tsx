@@ -24,16 +24,6 @@ const Problems = ({
     console.log('doAddTextResponseProblem');
   };
 
-  const AdminPage = (
-    <div>
-      <button
-        className="btn btn-outline-success btn-sm"
-        onClick={doAddTextResponseProblem}
-      >
-        <i className="fas fa-plus"></i> Text Response Question
-      </button>
-    </div>
-  );
   const DisplayProblems = () => (
     <div>
       {problems.map((problem, index) => (
@@ -43,7 +33,6 @@ const Problems = ({
       ))}
     </div>
   );
-  const NoneAdminPage = <div></div>;
 
   if (problems && problems.length) {
     console.log('Problems exist');
@@ -61,7 +50,18 @@ const Problems = ({
           <div className="container no-problems">(no problems yet)</div>
         )}
       </div>
-      {isAdmin ? <div>{AdminPage}</div> : <div>{NoneAdminPage}</div>}
+      {isAdmin ? (
+        <div>
+          <button
+            className="btn btn-outline-success btn-sm"
+            onClick={doAddTextResponseProblem}
+          >
+            <i className="fas fa-plus"></i> Text Response Question
+          </button>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

@@ -3,10 +3,6 @@
     {
       "description": "question1",
       "problemType": "text-response"
-    },
-    {
-      "description": "question2",
-      "problemType": "text-response"
     }
   ]
 }

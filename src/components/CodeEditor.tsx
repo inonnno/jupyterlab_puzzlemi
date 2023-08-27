@@ -57,6 +57,8 @@ export class CodeEditor extends React.Component<
   };
   private codeMirror!: CodeMirror.EditorFromTextArea;
   private codeNode!: HTMLTextAreaElement;
+  private ytext: any;
+  private binding: any;
 
   constructor(props = CodeEditor.defaultProps) {
     super(props);
@@ -75,9 +77,9 @@ export class CodeEditor extends React.Component<
       this.props.options.height
     );
     this.codeMirror.on('change', this.handleEditorChange);
-    const ytext = this.props.ydoc.getText(this.props.index.toString());
-    const binding = new CodemirrorBinding(
-      ytext,
+    this.ytext = this.props.ydoc.getText(this.props.index.toString());
+    this.binding = new CodemirrorBinding(
+      this.ytext,
       this.codeMirror,
       this.props.provider.awareness
     );

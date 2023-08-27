@@ -8195,6 +8195,7 @@ __metadata:
     stylelint-config-standard: ^34.0.0
     stylelint-prettier: ^4.0.0
     typescript: ~5.0.2
+    y-codemirror: ^3.0.1
     yjs: ^13.5.6
   languageName: unknown
   linkType: soft
@@ -12227,6 +12228,18 @@ __metadata:
   version: 4.0.2
   resolution: "xtend@npm:4.0.2"
   checksum: ac5dfa738b21f6e7f0dd6e65e1b3155036d68104e67e5d5d1bde74892e327d7e5636a076f625599dc394330a731861e87343ff184b0047fef1360a7ec0a5a36a
+  languageName: node
+  linkType: hard
+
+"y-codemirror@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "y-codemirror@npm:3.0.1"
+  dependencies:
+    lib0: ^0.2.42
+  peerDependencies:
+    codemirror: ^5.52.2
+    yjs: ^13.5.17
+  checksum: 7d24ba482a1ce8f36b0d711946e19394aab96c76f5fdd8702a0196252947b9672524ca3bc670de96580f8b6fc6d981b28a8a7be4461accd847cf400cd6f3bde6
   languageName: node
   linkType: hard
 

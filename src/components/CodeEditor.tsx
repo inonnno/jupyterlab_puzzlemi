@@ -100,7 +100,7 @@ export class CodeEditor extends React.Component<
   handleEditorChange = () => {
     this.editorcontent = this.codeMirror.getValue();
     if (this.props.addproblemdescription === true) {
-      PuzzleDocInstance.submitProblemDescription(
+      PuzzleDocInstance.updateProblemDescription(
         this.editorcontent,
         this.props.index
       );

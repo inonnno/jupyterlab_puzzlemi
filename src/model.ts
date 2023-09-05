@@ -498,6 +498,7 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
   set(key: 'problems', value: Partial<Problem>[]): void;
   set(key: string, value: string | Partial<Problem>[]): void {
     if (key === 'problems') {
+      console.log('set problems', value);
       this._content.set(key, JSON.stringify(value));
     } else {
       this._content.set(key, value);
@@ -510,11 +511,6 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
     currentProblems.push(value);
     this.set('problems', currentProblems);
   }
-  submitProblemDescription(value: string, index: number): void {
-    let currentProblems = this.get('problems');
-    currentProblems[index].description = value;
-    this.set('problems', currentProblems);
-  }
   getProblemDescription(index: number): string {
     if (this.get('problems')[index].description === '') {
       return 'here is a new problem';
@@ -524,8 +520,10 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
   }
   updateProblemDescription(value: string, index: number): void {
     let currentProblems = this.get('problems');
-    currentProblems[index].description = value;
-    this.set('problems', currentProblems);
+    if (index !== -1 && value) {
+      currentProblems[index].description = value;
+      this.set('problems', currentProblems);
+    }
   }
   /**
    * Handle a change.

@@ -6,6 +6,8 @@ import update from 'immutability-helper';
 import { IPMState } from '../../reducers';
 import { Problem, ExampleDoc } from '../../model';
 import PuzzleDocInstance from '../../createdoc';
+import * as Y from 'yjs';
+import { updateProblemDescription } from '../../actions/sharedjson_actions';
 
 interface IProblemDescriptionOwnProps {
   problem: Problem;
@@ -15,18 +17,30 @@ interface IProblemDescriptionProps extends IProblemDescriptionOwnProps {
   isAdmin: boolean;
   description: string;
   problemsDoc: ExampleDoc;
+  dispatch: React.Dispatch<any>;
 }
 const index = -1;
 const ProblemDescription = ({
   problem,
   isAdmin,
   description,
+  dispatch,
   index
 }: IProblemDescriptionProps): React.ReactElement => {
   index = index;
   if (isAdmin) {
-    const ydoc = PuzzleDocInstance.getYdoc();
-    //const ytext = ydoc.getText(index.toString());
+    const ydoc: Y.Doc = PuzzleDocInstance.getYdoc();
+    React.useEffect(() => {
+      const ymap = PuzzleDocInstance.getYmap();
+      const handleChange = event => {
+        description = ymap.get('description');
+        dispatch(updateProblemDescription(description, index));
+      };
+      ymap.observe(handleChange);
+      return () => {
+        ymap.unobserve(handleChange);
+      };
+    }, [description]);
     const provider = PuzzleDocInstance.getProvider();
     return (
       <div className="row">
@@ -36,6 +50,7 @@ const ProblemDescription = ({
             index={index}
             ydoc={ydoc}
             provider={provider}
+            description={description}
           />
         </div>
       </div>

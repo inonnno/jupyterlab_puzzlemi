@@ -436,6 +436,9 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
   getYdoc() {
     return this.ydoc;
   }
+  getYmap() {
+    return this._content;
+  }
   getProvider(): WebsocketProvider {
     return this._provider;
   }
@@ -518,6 +521,11 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
     } else {
       return this.get('problems')[index].description;
     }
+  }
+  updateProblemDescription(value: string, index: number): void {
+    let currentProblems = this.get('problems');
+    currentProblems[index].description = value;
+    this.set('problems', currentProblems);
   }
   /**
    * Handle a change.

@@ -103,8 +103,8 @@ const extension: JupyterFrontEndPlugin<void> = {
         args: widget => ({ path: widget.context.path, factory: FACTORY }),
         name: widget => widget.context.path
       });
-      console.log('restoring state');
-      store.dispatch({ type: 'RESTORE_STATE' });
+      //console.log('restoring state');
+      //store.dispatch({ type: 'RESTORE_STATE' });
     }
   }
 };

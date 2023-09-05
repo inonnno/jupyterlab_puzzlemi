@@ -13,8 +13,8 @@ export interface IPMState {
 const combinedReducers = combineReducers({
   shareJSONDocs,
   users,
-  ProblemAdded,
-  RESTORE_STATE
+  ProblemAdded
+  //RESTORE_STATE
 });
 
 export const rootReducer = reduceReducers(combinedReducers) as any;

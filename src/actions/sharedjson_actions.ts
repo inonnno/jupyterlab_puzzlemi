@@ -27,3 +27,16 @@ export function addTextResponseProblem() {
     });
   };
 }
+export interface IUpdateProblemDescription {
+  type: 'UpdateProblemDescription';
+  description: string;
+  index: number;
+}
+export const updateProblemDescription = (
+  description: string,
+  index: number
+): IUpdateProblemDescription => ({
+  index: index,
+  description: description,
+  type: 'UpdateProblemDescription'
+});

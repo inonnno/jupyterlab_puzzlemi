@@ -25,10 +25,12 @@ interface ICodeEditorProps {
   index: number;
   ydoc: any;
   provider: any;
+  description: string;
 }
 
 interface ICodeEditorState {
   code: string;
+  description: string;
 }
 export class CodeEditor extends React.Component<
   ICodeEditorProps,
@@ -53,7 +55,8 @@ export class CodeEditor extends React.Component<
     addproblemdescription: false,
     index: -1,
     ydoc: null,
-    provider: null
+    provider: null,
+    description: ''
   };
   private codeMirror!: CodeMirror.EditorFromTextArea;
   private codeNode!: HTMLTextAreaElement;
@@ -63,7 +66,8 @@ export class CodeEditor extends React.Component<
   constructor(props = CodeEditor.defaultProps) {
     super(props);
     this.state = {
-      code: this.props.value || ''
+      code: this.props.value || '',
+      description: this.props.description || ''
     };
   }
 
@@ -83,10 +87,16 @@ export class CodeEditor extends React.Component<
       this.codeMirror,
       this.props.provider.awareness
     );
+    this.props.ydoc.on('update', this.handleYDocUpdate);
   }
   editorcontent: string = PuzzleDocInstance.getProblemDescription(
     this.props.index
   );
+
+  componentWillUnmount(): void {
+    this.props.ydoc.off('update', this.handleYDocUpdate);
+  }
+
   handleEditorChange = () => {
     this.editorcontent = this.codeMirror.getValue();
     if (this.props.addproblemdescription === true) {
@@ -95,6 +105,9 @@ export class CodeEditor extends React.Component<
         this.props.index
       );
     }
+  };
+  handleYDocUpdate = (): void => {
+    this.setState({ description: this.ytext.toString() });
   };
 
   render(): React.ReactNode {

@@ -40,7 +40,7 @@ const ProblemDescription = ({
       return () => {
         ymap.unobserve(handleChange);
       };
-    }, [description]);
+    }, [dispatch]);
     const provider = PuzzleDocInstance.getProvider();
     return (
       <div className="row">

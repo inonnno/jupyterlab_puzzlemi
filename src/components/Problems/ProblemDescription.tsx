@@ -28,20 +28,21 @@ const ProblemDescription = ({
   index
 }: IProblemDescriptionProps): React.ReactElement => {
   index = index;
-  if (isAdmin) {
-    const ydoc: Y.Doc = PuzzleDocInstance.getYdoc();
-    const ymap = PuzzleDocInstance.getYmap();
-    const descrip = ymap.get('description');
-    React.useEffect(() => {
-      console.log('useEffect', description);
-      const handleChange = event => {
+  const ydoc: Y.Doc = PuzzleDocInstance.getYdoc();
+  const ymap = PuzzleDocInstance.getYmap();
+  const descrip = PuzzleDocInstance.getProblemDescription(index);
+  React.useEffect(() => {
+    console.log('useEffect', description);
+    const handleChange = event => {
+      if (descrip !== description)
         dispatch(updateProblemDescription(descrip, index));
-      };
-      ymap.observe(handleChange);
-      return () => {
-        ymap.unobserve(handleChange);
-      };
-    }, []);
+    };
+    ymap.observe(handleChange);
+    return () => {
+      ymap.unobserve(handleChange);
+    };
+  }, [ymap, description]);
+  if (isAdmin) {
     const provider = PuzzleDocInstance.getProvider();
     return (
       <div className="row">
@@ -51,7 +52,7 @@ const ProblemDescription = ({
             index={index}
             ydoc={ydoc}
             provider={provider}
-            description={description}
+            ymap={ymap}
           />
         </div>
       </div>

@@ -7,6 +7,7 @@ import { CodemirrorBinding } from 'y-codemirror';
 import * as Y from 'yjs';
 import { WebsocketProvider } from 'y-websocket';
 import uuid from '../utils/uuid';
+import { updateProblemDescription } from '../actions/sharedjson_actions';
 
 export interface ICodeChangeEvent {
   value: string;
@@ -23,14 +24,13 @@ interface ICodeEditorProps {
   captureTabs: boolean;
   addproblemdescription: boolean;
   index: number;
-  ydoc: any;
+  ydoc: Y.Doc;
   provider: any;
-  description: string;
+  ymap: Y.Map<any>;
 }
 
 interface ICodeEditorState {
   code: string;
-  description: string;
 }
 export class CodeEditor extends React.Component<
   ICodeEditorProps,
@@ -54,9 +54,9 @@ export class CodeEditor extends React.Component<
     captureTabs: true,
     addproblemdescription: false,
     index: -1,
-    ydoc: null,
+    ydoc: PuzzleDocInstance.getYdoc(),
     provider: null,
-    description: ''
+    ymap: PuzzleDocInstance.getYmap()
   };
   private codeMirror!: CodeMirror.EditorFromTextArea;
   private codeNode!: HTMLTextAreaElement;
@@ -66,8 +66,7 @@ export class CodeEditor extends React.Component<
   constructor(props = CodeEditor.defaultProps) {
     super(props);
     this.state = {
-      code: this.props.value || '',
-      description: this.props.description || ''
+      code: this.props.value || ''
     };
   }
 
@@ -100,12 +99,22 @@ export class CodeEditor extends React.Component<
 
   handleEditorChange = () => {
     this.editorcontent = this.codeMirror.getValue();
+    if (
+      this.editorcontent !==
+      PuzzleDocInstance.getProblemDescription(this.props.index)
+    ) {
+      store.dispatch(
+        updateProblemDescription(this.editorcontent, this.props.index)
+      );
+    }
     if (this.props.addproblemdescription === true) {
       PuzzleDocInstance.updateProblemDescription(
         this.editorcontent,
         this.props.index
       );
     }
+    const descrip = this.props.ymap.get('problems');
+    console.log('handleEditorChange', this.editorcontent, descrip);
   };
   /*
   handleYDocUpdate = (): void => {
@@ -119,7 +128,7 @@ export class CodeEditor extends React.Component<
       <div style={containerStyle}>
         <textarea
           ref={(ref: HTMLTextAreaElement) => (this.codeNode = ref)}
-          defaultValue={this.props.description}
+          defaultValue={this.state.code}
           autoComplete="off"
         />
       </div>

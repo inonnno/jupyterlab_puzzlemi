@@ -436,7 +436,7 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
   getYdoc() {
     return this.ydoc;
   }
-  getYmap() {
+  getYmap(): Y.Map<any> {
     return this._content;
   }
   getProvider(): WebsocketProvider {

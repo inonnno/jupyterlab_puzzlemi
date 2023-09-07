@@ -7,10 +7,12 @@ import { DocumentRegistry } from '@jupyterlab/docregistry';
 export interface IJSONDocsState {
   PuzzleDoc: ExampleDoc;
   problems: Problem[];
+  description: string;
 }
 const initialState: IJSONDocsState = {
   PuzzleDoc: PuzzleDocInstance,
-  problems: PuzzleDocInstance.get('problems')
+  problems: PuzzleDocInstance.get('problems'),
+  description: 'description'
 };
 
 export const shareJSONDocs = (state: IJSONDocsState = initialState, action) => {
@@ -18,12 +20,14 @@ export const shareJSONDocs = (state: IJSONDocsState = initialState, action) => {
     case 'AddTextResponseProblem':
       return { ...state, problems: state.PuzzleDoc.get('problems') };
     case 'UpdateProblemDescription':
+      console.log('UpdateProblemDescription', state.PuzzleDoc.get('problems'));
       return {
         ...state,
         problems: state.PuzzleDoc.updateProblemDescription(
           action.description,
           action.index
-        )
+        ),
+        description: action.description
       };
     default:
       return state;

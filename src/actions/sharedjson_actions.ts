@@ -12,7 +12,6 @@ export function addTextResponseProblem() {
   return async (dispatch: Dispatch, getState) => {
     const { shareJSONDocs } = getState();
     const PuzzleDoc = shareJSONDocs.PuzzleDoc;
-
     const newProblem: Problem = {
       id: uuid(),
       description: 'here is a new problem',

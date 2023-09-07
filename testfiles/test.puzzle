@@ -1,7 +1,11 @@
 {
   "problems": [
     {
-      "description": "abcdef",
+      "description": "abc",
+      "problemType": "text-response"
+    },
+    {
+      "description": "b",
       "problemType": "text-response"
     }
   ]

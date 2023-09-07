@@ -87,14 +87,15 @@ export class CodeEditor extends React.Component<
       this.codeMirror,
       this.props.provider.awareness
     );
-    this.props.ydoc.on('update', this.handleYDocUpdate);
+    //this.props.ydoc.on('update', this.handleYDocUpdate);
   }
   editorcontent: string = PuzzleDocInstance.getProblemDescription(
     this.props.index
   );
 
   componentWillUnmount(): void {
-    this.props.ydoc.off('update', this.handleYDocUpdate);
+    //this.props.ydoc.off('update', this.handleYDocUpdate);
+    this.codeMirror.off('change', this.handleEditorChange);
   }
 
   handleEditorChange = () => {
@@ -106,9 +107,11 @@ export class CodeEditor extends React.Component<
       );
     }
   };
+  /*
   handleYDocUpdate = (): void => {
     this.setState({ description: this.ytext.toString() });
   };
+  */
 
   render(): React.ReactNode {
     const containerStyle = { border: '1px solid #000' };
@@ -116,7 +119,7 @@ export class CodeEditor extends React.Component<
       <div style={containerStyle}>
         <textarea
           ref={(ref: HTMLTextAreaElement) => (this.codeNode = ref)}
-          defaultValue={this.editorcontent}
+          defaultValue={this.props.description}
           autoComplete="off"
         />
       </div>

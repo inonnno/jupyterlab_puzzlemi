@@ -33,7 +33,7 @@ const ProblemDescription = ({
     const ymap = PuzzleDocInstance.getYmap();
     const descrip = ymap.get('description');
     React.useEffect(() => {
-      console.log('useEffect');
+      console.log('useEffect', description);
       const handleChange = event => {
         dispatch(updateProblemDescription(descrip, index));
       };
@@ -73,13 +73,13 @@ function mapStateToProps(
   state: IPMState,
   givenProps: IProblemDescriptionOwnProps
 ): IProblemDescriptionProps {
-  const { problem } = givenProps;
+  const { problem, index } = givenProps;
   const { users, shareJSONDocs } = state;
   const { isAdmin } = users;
   const problemsDoc = shareJSONDocs.PuzzleDoc!;
   const problems = shareJSONDocs.problems!;
-  let description = 'here is a new problem';
-  if (index !== -1 && problems[index]) {
+  let description = '';
+  if (problems && index !== -1 && problems[index]) {
     description = problems[index].description;
   } else {
     description = problem.description;

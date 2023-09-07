@@ -33,12 +33,6 @@ const Problems = ({
       ))}
     </div>
   );
-
-  if (problems && problems.length) {
-    console.log('Problems exist');
-  } else {
-    console.log('No problems');
-  }
   return (
     <div className="container">
       <div className="problems">

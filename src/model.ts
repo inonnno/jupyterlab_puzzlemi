@@ -507,9 +507,11 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
 
   //add a new problem to the list
   submitObjectInsertOp(value: Problem): void {
-    let currentProblems = this.get('problems');
-    currentProblems.push(value);
-    this.set('problems', currentProblems);
+    this.ydoc.transact(() => {
+      let currentProblems = this.get('problems');
+      currentProblems.push(value);
+      this.set('problems', currentProblems);
+    });
   }
   getProblemDescription(index: number): string {
     if (this.get('problems')[index].description === '') {

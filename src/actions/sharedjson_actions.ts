@@ -39,3 +39,13 @@ export const updateProblemDescription = (
   description: description,
   type: 'UpdateProblemDescription'
 });
+export interface IUpdateProblems {
+  type: 'UpdateProblems';
+  problems: Partial<Problem>[];
+}
+export const updateProblems = (
+  problems: Partial<Problem>[]
+): IUpdateProblems => ({
+  problems: problems,
+  type: 'UpdateProblems'
+});

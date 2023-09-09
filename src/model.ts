@@ -10,7 +10,8 @@ import { ISignal, Signal } from '@lumino/signaling';
 
 import PuzzleDocInstance from './createdoc';
 import { WebsocketProvider } from 'y-websocket';
-
+import store from './store';
+import { updateProblemDescription } from './actions/sharedjson_actions';
 import * as Y from 'yjs';
 export interface ICodeProblem {
   id: string;
@@ -526,6 +527,10 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
       currentProblems[index].description = value;
       this.set('problems', currentProblems);
     }
+  }
+  updateProblems(value: Partial<Problem>[]): void {
+    console.log('update problems', value);
+    this.set('problems', value);
   }
   /**
    * Handle a change.

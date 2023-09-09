@@ -7,7 +7,10 @@ import { IPMState } from '../../reducers';
 import { Problem, ExampleDoc } from '../../model';
 import PuzzleDocInstance from '../../createdoc';
 import * as Y from 'yjs';
-import { updateProblemDescription } from '../../actions/sharedjson_actions';
+import {
+  updateProblemDescription,
+  updateProblems
+} from '../../actions/sharedjson_actions';
 
 interface IProblemDescriptionOwnProps {
   problem: Problem;
@@ -34,19 +37,20 @@ const ProblemDescription = ({
   React.useEffect(() => {
     console.log('useEffect', description);
     const handleChange = event => {
-      if (descrip !== description)
-        dispatch(updateProblemDescription(descrip, index));
+      const problems = ymap.toJSON();
+      dispatch(updateProblems(problems.problems));
     };
     ymap.observe(handleChange);
     return () => {
       ymap.unobserve(handleChange);
     };
-  }, [ymap, description]);
+  }, []);
   if (isAdmin) {
     const provider = PuzzleDocInstance.getProvider();
     return (
       <div className="row">
         <div className="col problem-description">
+          <div>{description}</div>
           <CodeEditor
             addproblemdescription={true}
             index={index}

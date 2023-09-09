@@ -99,6 +99,7 @@ export class CodeEditor extends React.Component<
 
   handleEditorChange = () => {
     this.editorcontent = this.codeMirror.getValue();
+    /*
     if (
       this.editorcontent !==
       PuzzleDocInstance.getProblemDescription(this.props.index)
@@ -107,6 +108,7 @@ export class CodeEditor extends React.Component<
         updateProblemDescription(this.editorcontent, this.props.index)
       );
     }
+    */
     if (this.props.addproblemdescription === true) {
       PuzzleDocInstance.updateProblemDescription(
         this.editorcontent,

@@ -33,12 +33,12 @@ const ProblemDescription = ({
   index = index;
   const ydoc: Y.Doc = PuzzleDocInstance.getYdoc();
   const ymap = PuzzleDocInstance.getYmap();
-  const descrip = PuzzleDocInstance.getProblemDescription(index);
   React.useEffect(() => {
-    console.log('useEffect', description);
+    const problems = ymap.toJSON();
     const handleChange = event => {
-      const problems = ymap.toJSON();
-      dispatch(updateProblems(problems.problems));
+      const descrip = PuzzleDocInstance.getProblemDescription(index);
+      console.log('handleChange', description, descrip);
+      dispatch(updateProblemDescription(descrip, index));
     };
     ymap.observe(handleChange);
     return () => {

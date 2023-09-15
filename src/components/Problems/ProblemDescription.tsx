@@ -37,7 +37,7 @@ const ProblemDescription = ({
     const problems = ymap.toJSON();
     const handleChange = event => {
       const descrip = PuzzleDocInstance.getProblemDescription(index);
-      console.log('handleChange', description, descrip);
+      console.log('handleChange description descrip', description, descrip);
       dispatch(updateProblemDescription(descrip, index));
     };
     ymap.observe(handleChange);

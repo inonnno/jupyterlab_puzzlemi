@@ -20,14 +20,19 @@ export const shareJSONDocs = (state: IJSONDocsState = initialState, action) => {
     case 'AddTextResponseProblem':
       return { ...state, problems: state.PuzzleDoc.get('problems') };
     case 'UpdateProblemDescription':
-      console.log('UpdateProblemDescription', state.PuzzleDoc.get('problems'));
+      console.log(
+        'BeforeUpdateProblemDescription state:',
+        state.PuzzleDoc.get('problems')
+      );
       return {
-        ...state,
+        ...state
+        /*
         problems: state.PuzzleDoc.updateProblemDescription(
           action.description,
           action.index
         ),
         description: action.description
+        */
       };
     default:
       return state;

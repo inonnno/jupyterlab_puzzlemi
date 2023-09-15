@@ -115,14 +115,8 @@ export class CodeEditor extends React.Component<
         this.props.index
       );
     }
-    const descrip = this.props.ymap.get('problems');
-    console.log('handleEditorChange', this.editorcontent, descrip);
+    console.log('handleEditorChange', this.editorcontent);
   };
-  /*
-  handleYDocUpdate = (): void => {
-    this.setState({ description: this.ytext.toString() });
-  };
-  */
 
   render(): React.ReactNode {
     const containerStyle = { border: '1px solid #000' };
@@ -130,7 +124,7 @@ export class CodeEditor extends React.Component<
       <div style={containerStyle}>
         <textarea
           ref={(ref: HTMLTextAreaElement) => (this.codeNode = ref)}
-          defaultValue={this.state.code}
+          defaultValue={''}
           autoComplete="off"
         />
       </div>

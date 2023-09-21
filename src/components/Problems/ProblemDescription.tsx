@@ -4,7 +4,7 @@ import * as showdown from 'showdown';
 import { CodeEditor } from '../CodeEditor';
 import update from 'immutability-helper';
 import { IPMState } from '../../reducers';
-import { Problem, ExampleDoc } from '../../model';
+import { IProblem, ExampleDoc } from '../../model';
 import PuzzleDocInstance from '../../createdoc';
 import * as Y from 'yjs';
 import {
@@ -13,7 +13,7 @@ import {
 } from '../../actions/sharedjson_actions';
 
 interface IProblemDescriptionOwnProps {
-  problem: Problem;
+  problem: IProblem;
   index: number;
 }
 interface IProblemDescriptionProps extends IProblemDescriptionOwnProps {

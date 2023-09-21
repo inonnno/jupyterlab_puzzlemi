@@ -53,7 +53,7 @@ export interface IMultipleChoiceOption {
   isCorrect: boolean;
 }
 
-export type Problem =
+export type IProblem =
   | ICodeProblem
   | ITextResponseProblem
   | IMultipleChoiceProblem;
@@ -61,7 +61,7 @@ export type Problem =
  * Document structure
  */
 export type SharedObject = {
-  problems: Problem[];
+  problems: IProblem[];
 };
 /**
  * DocumentModel: this Model represents the content of the file
@@ -184,10 +184,10 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
     this.sharedModel.set('content', v);
   }
 
-  get problems(): Problem[] {
+  get problems(): IProblem[] {
     return this.sharedModel.get('problems');
   }
-  set problems(v: Problem[]) {
+  set problems(v: IProblem[]) {
     this.sharedModel.set('problems', v);
   }
 
@@ -411,7 +411,7 @@ export class PuzzleDocModel implements DocumentRegistry.IModel {
  */
 export type ExampleDocChange = {
   contentChange?: string;
-  problemsChange?: Problem[];
+  problemsChange?: IProblem[];
 } & DocumentChange;
 
 /**
@@ -470,7 +470,7 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
    * @returns The content
    */
   get(key: 'content'): string;
-  get(key: 'problems'): Problem[];
+  get(key: 'problems'): IProblem[];
   get(key: string): any {
     const data = this._content.get(key);
     if (key === 'problems') {
@@ -496,8 +496,8 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
    * @param value New object.
    */
   set(key: 'content', value: string): void;
-  set(key: 'problems', value: Partial<Problem>[]): void;
-  set(key: string, value: string | Partial<Problem>[]): void {
+  set(key: 'problems', value: Partial<IProblem>[]): void;
+  set(key: string, value: string | Partial<IProblem>[]): void {
     if (key === 'problems') {
       console.log('set problems', value);
       this._content.set(key, JSON.stringify(value));
@@ -507,7 +507,7 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
   }
 
   //add a new problem to the list
-  submitObjectInsertOp(value: Problem): void {
+  submitObjectInsertOp(value: IProblem): void {
     this.ydoc.transact(() => {
       let currentProblems = this.get('problems');
       currentProblems.push(value);
@@ -515,11 +515,14 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
     });
   }
   getProblemDescription(index: number): string {
-    if (this.get('problems')[index].description === '') {
-      return 'here is a new problem';
-    } else {
-      return this.get('problems')[index].description;
+    if (this.get('problems')[index] !== undefined) {
+      if (this.get('problems')[index].description === '') {
+        return 'here is a new problem';
+      } else {
+        return this.get('problems')[index].description;
+      }
     }
+    return 'index is out of range';
   }
   updateProblemDescription(value: string, index: number): void {
     let currentProblems = this.get('problems');
@@ -528,7 +531,7 @@ export class ExampleDoc extends YDocument<ExampleDocChange> {
       this.set('problems', currentProblems);
     }
   }
-  updateProblems(value: Partial<Problem>[]): void {
+  updateProblems(value: Partial<IProblem>[]): void {
     console.log('update problems', value);
     this.set('problems', value);
   }

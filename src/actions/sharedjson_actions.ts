@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 //import { IProblem, IProblemType } from '../reducers/problems';
-import { Problem } from '../model';
+import { IProblem } from '../model';
 import uuid from '../utils/uuid';
 import { IProblemType } from '../model';
 
@@ -12,7 +12,7 @@ export function addTextResponseProblem() {
   return async (dispatch: Dispatch, getState) => {
     const { shareJSONDocs } = getState();
     const PuzzleDoc = shareJSONDocs.PuzzleDoc;
-    const newProblem: Problem = {
+    const newProblem: IProblem = {
       id: uuid(),
       description: 'here is a new problem',
       problemType: IProblemType.TextResponse
@@ -41,10 +41,10 @@ export const updateProblemDescription = (
 });
 export interface IUpdateProblems {
   type: 'UpdateProblems';
-  problems: Partial<Problem>[];
+  problems: Partial<IProblem>[];
 }
 export const updateProblems = (
-  problems: Partial<Problem>[]
+  problems: Partial<IProblem>[]
 ): IUpdateProblems => ({
   problems: problems,
   type: 'UpdateProblems'

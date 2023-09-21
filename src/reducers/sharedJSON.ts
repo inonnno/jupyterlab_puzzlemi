@@ -1,12 +1,12 @@
 import PuzzleDocModelInstance from '../createdoc';
 import PuzzleDocInstance from '../createdoc';
-import { ExampleDoc, Problem, PuzzleDocModel } from '../model';
+import { ExampleDoc, IProblem, PuzzleDocModel } from '../model';
 import { ExampleDocModelFactory } from '../factory';
 import { DocumentRegistry } from '@jupyterlab/docregistry';
 
 export interface IJSONDocsState {
   PuzzleDoc: ExampleDoc;
-  problems: Problem[];
+  problems: IProblem[];
   description: string;
 }
 const initialState: IJSONDocsState = {
@@ -21,8 +21,8 @@ export const shareJSONDocs = (state: IJSONDocsState = initialState, action) => {
       return { ...state, problems: state.PuzzleDoc.get('problems') };
     case 'UpdateProblemDescription':
       console.log(
-        'BeforeUpdateProblemDescription state:',
-        state.PuzzleDoc.get('problems')
+        'BeforeUpdateProblemDescription state:'
+        //state.PuzzleDoc.get('problems')
       );
       return {
         ...state

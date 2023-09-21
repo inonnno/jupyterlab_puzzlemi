@@ -2,15 +2,17 @@ import { connect } from 'react-redux';
 import * as React from 'react';
 import { addTextResponseProblem } from '../../actions/sharedjson_actions';
 import { IPMState } from '../../reducers';
-import { Problem } from '../../model';
+import { IProblem } from '../../model';
 import { CodeEditor } from '../CodeEditor';
 import { PuzzleDocModel } from '../../model';
 import ProblemDescription from './ProblemDescription';
+import Problem from './Problem';
+
 interface IProblemsOwnProps {}
 interface IProblemsProps extends IProblemsOwnProps {
   isAdmin: boolean;
   dispatch: React.Dispatch<any>;
-  problems: Problem[];
+  problems: IProblem[];
 }
 
 const Problems = ({
@@ -28,7 +30,7 @@ const Problems = ({
     <div>
       {problems.map((problem, index) => (
         <div key={index}>
-          <ProblemDescription problem={problem} index={index} />
+          <Problem problem={problem} index={index} />
         </div>
       ))}
     </div>
